@@ -56,12 +56,11 @@ export default function CycleParking() {
 
   const handleParkVehicle = async (values: any) => {
     if (!selectedSlot) return;
-    
-    // Check if the user is verified
+    setModalVisible(false);
     const existingUser = await getUserByEmail(values.email);
     if (!existingUser || !existingUser.verified) {
-      message.error('User is not verified. Please complete the verification process to park your vehicle.');
-      setModalVisible(false);
+        message.info('User is not verified. Please complete the verification process to park your vehicle')
+    //   message.error('User is not verified. Please complete the verification process to park your vehicle.');
       return;
     }
 

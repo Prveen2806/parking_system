@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {  Button,  Modal, Form, Input, message } from 'antd';
+import {  Button,  Modal, Form, Input, App, Radio } from 'antd';
 
 import { ParkingGrid } from '@components/parking/ParkingGrid';
 import { ParkingStats } from '@components/parking/ParkingStats';
@@ -11,39 +11,24 @@ import { getUserByEmail } from '@pages/valetManagement/utils';
 
 
 export default function CycleParking() {
-  const { 
-    floors, 
-    selectedFloor, 
-    setSelectedFloor, 
-    parkVehicle, 
-    vacateSlot, 
-    getSlotsByFloor 
-  } = useParking();
-  
-  const [selectedSlot, setSelectedSlot] = useState<ParkingSlot | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [qrCodeData, setQrCodeData] = useState<string | null>(null); // State for QR code data
-  const [qrModalVisible, setQrModalVisible] = useState(false); // State for QR code modal
+  const [qrModalVisible, setQrModalVisible] = useState(false);
   const [form] = Form.useForm();
+  const [selectedSlot, setSelectedSlot] = useState<ParkingSlot | null>(null);
+//   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [qrCodeData, setQrCodeData] = useState<string | null>(null);
+  const [parkingType, setParkingType] = useState<'normal' | 'valet'>('normal'); // New state for parking type
 
-  const cycleFloors = floors.filter(floor => floor.type === 'cycle');
-  const currentSlots = getSlotsByFloor(selectedFloor);
-  
-  const selectedFloorData = floors.find(floor => floor.number === selectedFloor);
-
-  const totalSlots = selectedFloorData?.totalSlots || 0;
-  const occupiedSlots = selectedFloorData?.occupiedSlots || 0;
-  const revenue = 1250.50; // Mock revenue for cycle parking
-  const securityIncidents = 0;
-  const availableValets = 8;
+  const {  floors, selectedFloor, setSelectedFloor, getSlotsByFloor, parkVehicle, vacateSlot, getFloorDetails } = useParking();
+  const { modal, message } = App.useApp();
 
   const handleSlotClick = (slot: ParkingSlot) => {
     setSelectedSlot(slot);
-    
     if (slot.status === 'free') {
       setModalVisible(true);
     } else if (slot.status === 'occupied') {
-      Modal.confirm({
+      console.log('Occupied slot clicked:', slot);
+      modal.confirm({
         title: 'Vacate Parking Slot',
         content: `Do you want to free up slot ${slot.id}?`,
         onOk: () => {
@@ -57,11 +42,13 @@ export default function CycleParking() {
   const handleParkVehicle = async (values: any) => {
     if (!selectedSlot) return;
     setModalVisible(false);
-    const existingUser = await getUserByEmail(values.email);
-    if (!existingUser || !existingUser.verified) {
-        message.info('User is not verified. Please complete the verification process to park your vehicle')
-    //   message.error('User is not verified. Please complete the verification process to park your vehicle.');
-      return;
+
+    if (parkingType === 'valet') {
+      const existingUser = await getUserByEmail(values.email);
+      if (!existingUser || !existingUser.verified) {
+          message.error('User is not verified. Please complete the verification process to park your vehicle');
+        return;
+      }
     }
 
     const user: User = {
@@ -88,6 +75,17 @@ export default function CycleParking() {
     setModalVisible(false);
     form.resetFields();
   };
+
+  const cycleFloors = floors.filter(floor => floor.type === 'cycle');
+  const currentSlots = getSlotsByFloor(selectedFloor);
+
+  const selectedFloorData = getFloorDetails(selectedFloor);
+
+  const totalSlots = selectedFloorData?.totalSlots || 0;
+  const occupiedSlots = selectedFloorData?.occupiedSlots || 0;
+  const revenue = 1250.50; // Mock revenue for cycle parking
+  const securityIncidents = 0;
+  const availableValets = 8;
 
   return (
     <div style={{ padding: '20px' }}>
@@ -133,6 +131,12 @@ export default function CycleParking() {
           onFinish={handleParkVehicle}
           style={{ marginTop: '16px' }}
         >
+          <Form.Item label="Parking Type">
+            <Radio.Group onChange={(e) => setParkingType(e.target.value)} value={parkingType}>
+              <Radio value="normal">Normal Parking</Radio>
+              <Radio value="valet">Valet Parking</Radio>
+            </Radio.Group>
+          </Form.Item>
           <Form.Item
             name="name"
             label="Customer Name"

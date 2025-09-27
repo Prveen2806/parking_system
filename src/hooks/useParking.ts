@@ -1,7 +1,7 @@
 import type { ParkingFloor, ParkingSlot, User } from '@pages/cycleParking/types';
 import { useState, useEffect } from 'react';
 import { useValetManagement } from './useValetManagement'; // Import the valet management hook
-import { notification } from 'antd';
+
 
 const CYCLE_SLOTS_PER_FLOOR = 480; 
 const CAR_SLOTS_PER_FLOOR = 60;
@@ -138,14 +138,6 @@ export const useParking = () => {
   };
 
   const parkVehicle = (slotId: string, user: User, vehicleSkills: string[]) => {
-    if (!user.verified) {
-      notification.error({
-        message: 'Verification Required',
-        description: 'Only verified users can use valet parking services.',
-      });
-      return;
-    }
-
     setSlots(prevSlots =>
       prevSlots.map(slot => {
         if (slot.id === slotId && slot.status === 'free') {

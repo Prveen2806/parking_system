@@ -1,0 +1,217 @@
+.ant-form-vertical .ant-form-item-required {
+  &::before {
+    display: none !important;
+  }
+  &::after {
+    content: "*" !important;
+    color: $danger !important;
+    visibility: visible !important;
+  }
+}
+
+input:disabled,
+textarea:disabled,
+.ant-select-disabled .ant-select-selection-item,
+.ant-picker-disabled .ant-picker-selection-item {
+  color: $grey !important;
+}
+.ant-switch.ant-switch-checked {
+  background: $brand !important;
+}
+
+.text-white {
+  .anticon.ant-input-password-icon {
+    color: #fff !important;
+  }
+}
+
+button {
+  &.ant-drawer-close {
+    position: absolute;
+    right: 10px;
+    margin-right: 0px !important;
+  }
+  &.ant-modal-close {
+    height: max-content !important;
+    width: max-content !important;
+  }
+  & span.anticon-close > svg {
+    fill: $danger;
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}
+
+.ant-layout-sider.side-bar {
+  &.ant-layout-sider-collapsed {
+    .logo-link {
+      .app-logo {
+        display: block;
+      }
+      .full-logo {
+        display: none;
+      }
+    }
+  }
+  .logo-link {
+    img {
+      height: 60px;
+      object-fit: contain;
+    }
+    .app-logo {
+      display: none;
+    }
+    .full-logo {
+      display: block;
+    }
+  }
+
+  .ant-layout-sider-trigger {
+    bottom: 3px !important;
+    border-radius: inherit !important;
+    border-start-start-radius: 0px !important;
+    border-start-end-radius: 0px !important;
+    color: #fff !important;
+    background-color: inherit !important;
+  }
+}
+
+.ant-btn {
+  &.ant-btn-default {
+    .ant-btn-icon {
+      svg {
+        fill: $primary !important;
+      }
+    }
+  }
+
+  &:disabled {
+    .ant-btn-icon {
+      svg {
+        fill: $grey1 !important;
+      }
+    }
+  }
+}
+
+.ant-radio-wrapper {
+  color: $grey !important;
+  & .ant-radio.ant-radio {
+    & .ant-radio-inner {
+      background: #fff;
+      border-color: #d3d3d3;
+      width: 25px;
+      height: 25px;
+      &::after {
+        background-color: $primary;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        inset-block-start: 2px;
+        inset-inline-start: 2px;
+      }
+    }
+  }
+}
+
+.ant-input-suffix,
+.ant-input-prefix {
+  color: $grey !important;
+}
+
+.ant-pagination-options,
+.ant-color-picker-input-container {
+  .ant-select {
+    min-width: 40px !important;
+  }
+}
+
+.roster-calendar {
+  &.roster-calendar-full {
+    .roster-panel {
+      text-align: start;
+      table {
+        &.roster-content {
+          border-spacing: 0px;
+          th {
+            text-align: center;
+            padding: 1rem;
+            background: #fafafa;
+            text-transform: uppercase;
+            &:first-child {
+              border-top-left-radius: 4px;
+            }
+            &:last-child {
+              border-top-right-radius: 4px;
+            }
+          }
+          thead {
+            tr {
+              border: 1px solid #e5e5e5;
+            }
+          }
+          tbody {
+            td {
+              border: 1px solid #e5e5e5;
+            }
+            td {
+              &:not(.roster-cell-in-view) {
+                background-color: #d9d9d94d;
+              }
+            }
+          }
+          .roster-cell-inner {
+            margin: 0px;
+            padding: 8px;
+            // border: 1px solid #e5e5e5;
+            border: none;
+            .roster-calendar-date-content {
+              height: auto;
+              min-height: 50px;
+            }
+          }
+          .roster-cell-today {
+            background: #ec2227;
+            .roster-calendar-date-value {
+              color: #fff;
+            }
+            &.roster-cell-selected {
+              .roster-cell-inner {
+                background: none;
+                .roster-calendar-date-value {
+                  color: inherit;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.sp-menu {
+  .ant-menu-item {
+    width: calc(100% - 4px) !important;
+    border-end-end-radius: 0px !important;
+    border-start-end-radius: 0px !important;
+    border-end-start-radius: 20px !important;
+    border-start-start-radius: 20px !important;
+    &.ant-menu-item-selected {
+      background-color: #fff !important;
+    }
+  }
+  .ant-menu-item:not(.ant-menu-item-selected),
+  .ant-menu-submenu .ant-menu-submenu-title {
+    color: #fff !important;
+  }
+  // .ant-menu-submenu {
+  //   &.ant-menu-submenu-selected {
+  //     background-color: #fff !important;
+  //     .ant-menu-submenu-title,
+  //     .ant-menu-item {
+  //       color: $primary !important;
+  //     }
+  //   }
+  // }
+}

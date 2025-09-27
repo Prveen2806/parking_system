@@ -1,0 +1,27 @@
+@import "./colors.scss";
+
+$theme-font-family: "Outfit", sans-serif;
+
+$theme-colors: (
+  "primary": $primary,
+  "primary-light": $primary-light,
+  "warning": $warning,
+  "dark": $dark,
+  "success": $success,
+  "danger": $danger,
+  "body": $body,
+  "grey": $grey,
+  "grey1": $grey1,
+  "grey2": $grey2,
+  "grey3": $grey3,
+  "brand": $brand,
+  "brand1": $brand1,
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px,
+);

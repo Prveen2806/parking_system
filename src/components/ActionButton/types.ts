@@ -1,0 +1,32 @@
+import { BaseButtonProps } from "antd/es/button/button";
+import { ReactNode } from "react";
+
+export type ActionButtonProps = {
+  wrap?: boolean;
+  className?: string;
+  searchTitle?: string;
+  onSearch?: boolean | (() => void);
+  searchDisable?: boolean;
+  addTitle?: string;
+  onAdd?: string | (() => void);
+  addDisable?: boolean;
+  viewTitle?: string;
+  onView?: string | (() => void);
+  viewDisable?: boolean;
+  editTitle?: string;
+  onEdit?: () => void;
+  editDisable?: boolean;
+  deleteTitle?: string;
+  onDelete?: () => void;
+  deleteDisable?: boolean;
+  exportTitle?: string;
+  onExport?: () => void;
+  exportDisable?: boolean;
+  downloadTitle?: string;
+  onDownload?: () => void;
+  downloadDisable?: boolean;
+  state?: any;
+  children?: ReactNode;
+  deleteBtnProps?: BaseButtonProps;
+  AddBtnProps?: BaseButtonProps;
+};

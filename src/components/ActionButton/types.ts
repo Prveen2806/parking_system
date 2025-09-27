@@ -1,5 +1,5 @@
-import { BaseButtonProps } from "antd/es/button/button";
-import { ReactNode } from "react";
+import type { BaseButtonProps } from "antd/es/button/button";
+import type { ReactNode } from "react";
 
 export type ActionButtonProps = {
   wrap?: boolean;
